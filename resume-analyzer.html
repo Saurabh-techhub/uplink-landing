@@ -3,55 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resume Analyzer - UpLinkAI</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Resume Analyzer – UpLinkAI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <div class="container">
-      <h1 class="logo">UpLinkAI</h1>
-      <p class="tagline">From Learning to Earning</p>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-indigo-600 text-white py-6">
+    <div class="max-w-5xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">UpLinkAI</h1>
+      <a href="index.html" class="text-sm underline hover:text-blue-100">← Back to Home</a>
     </div>
   </header>
 
-  <main class="toolbox">
-    <h2>Paste Your Resume Below</h2>
-    <textarea id="resumeInput" placeholder="Paste your resume or key points here..."></textarea>
-    <button onclick="analyzeResume()">Analyze Resume</button>
-    <div class="output" id="resultBox"></div>
+  <!-- Main Tool -->
+  <main class="max-w-3xl mx-auto p-6 mt-12 bg-white shadow-md rounded">
+    <h2 class="text-2xl font-bold mb-4">AI Resume Analyzer</h2>
+    <p class="mb-4">Paste your resume content below and let our AI suggest improvements instantly.</p>
+    <textarea id="resumeInput" class="w-full h-48 p-3 border border-gray-300 rounded mb-4" placeholder="Paste your resume here..."></textarea>
+    <button onclick="analyzeResume()" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700">Analyze Resume</button>
+    <div id="resultBox" class="mt-6 p-4 bg-gray-100 border border-gray-300 rounded text-sm whitespace-pre-line"></div>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 UpLinkAI. Built for students.</p>
-    </div>
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 mt-16 py-4">
+    <p>© 2025 UpLinkAI · Built by Saurabh Tripathi</p>
   </footer>
 
+  <!-- JavaScript -->
   <script>
     function analyzeResume() {
-      const resume = document.getElementById('resumeInput').value;
-      const result = document.getElementById('resultBox');
+      const resume = document.getElementById("resumeInput").value;
+      const result = document.getElementById("resultBox");
       if (!resume.trim()) {
-        result.innerText = "⚠️ Please paste your resume to analyze.";
+        result.innerText = "⚠️ Please paste your resume before analyzing.";
         return;
       }
 
-      let feedback = "✅ AI Resume Feedback:\n\n";
-      feedback += "- Strong formatting! Important sections like Education, Skills, and Experience are detected.\n";
-      if (resume.toLowerCase().includes("team")) {
-        feedback += "- Great mention of teamwork. Consider adding collaboration tools.\n";
+      let feedback = "✅ Resume Feedback:\n\n";
+      if (resume.toLowerCase().includes("project")) {
+        feedback += "- Great! Your resume mentions project experience.\n";
       } else {
-        feedback += "- Add experience with teamwork or collaboration tools.\n";
+        feedback += "- Consider adding a 'Projects' section with real work or internships.\n";
       }
-      if (!resume.toLowerCase().includes("project")) {
-        feedback += "- Include at least one project with results or tech used.\n";
+
+      if (resume.toLowerCase().includes("python") || resume.toLowerCase().includes("sql")) {
+        feedback += "- Technical skills like Python or SQL are well-highlighted.\n";
       } else {
-        feedback += "- Project section looks good.\n";
+        feedback += "- Add relevant technical skills clearly (e.g., Python, SQL, ML).\n";
       }
+
       if (resume.length < 300) {
-        feedback += "- Add more detail. Resumes under 300 characters are too short.\n";
+        feedback += "- Your resume seems short. Add more experiences or achievements.\n";
+      } else {
+        feedback += "- Resume length looks okay.\n";
       }
-      feedback += "\nKeep learning, building, and applying with UpLinkAI! 🚀";
+
+      feedback += "\n💡 Tip: Use action words and quantify your achievements.";
 
       result.innerText = feedback;
     }
